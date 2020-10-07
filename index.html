@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+
+        <title>EasyStamp</title>
+        <meta charset="utf-8">
+
+        <link rel="stylesheet" href="utils/jquery-ui-1.12.1/jquery-ui.min.css">
+        <link rel="stylesheet" href="utils/jquery-ui-1.12.1/jquery-ui.theme.min.css">
+
+        <link rel="stylesheet" href="css/style.css">
+
+    </head> 
+
+    <body>
+
+        <header>
+            <h1>EasyStamp</h1>
+        </header>
+
+        <main>  
+
+            <div id="stampUser">
+                <label for="colaborador">Colaborador:</label>
+                <input type="text" name="colaborador" id="colaborador" value="João Victor Gonçalves dos Santos">
+                <button id="addColaborador" disabled>+</button>
+            </div>
+
+            <br>
+
+            <div id="stampTypeSelect">  
+
+                <div>
+                    <p>Exemplos de Análise</p>
+                    <div>
+                        <button id="p1Ericsson" class="btnAnalise">Ericsson</button>
+                        <button id="p1Huawei" class="btnAnalise">Huawei</button>
+                        <button id="p1MetroIsolado" class="btnAnalise">Metro Isolado</button>
+                        <button id="p1MetroQuedaP2P" class="btnAnalise">Metro Queda P2P</button>
+                        <button id="p1MetroQuedaInfo1S" class="btnAnalise">Metro Queda <span>(Info apenas um lado)</span></button>
+                        <button id="p1MetroTemperatura" class="btnAnalise">Metro Temperatura Alta</button>
+                        <button id="p1TX" class="btnAnalise">TX</button>
+                        <button id="p1Solicitacao" class="btnAnalise">Solicitação</button>
+                    </div>
+                    <br>
+                </div>
+
+                <div id="fastAnalysisDiv">
+                    <p>Análise Rápida</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tecnologia</th>
+                                    <th>Status da ERB</th>
+                                    <th>Alarmes</th>
+                                </tr>
+                                <tr id="linhaAddERB">
+                                    <td>
+                                        <button id="btnAdicionaERB">+</button>
+                                        <select name="tecnologias">
+                                            <optgroup label="Ericsson">
+                                                <option value="GSM Ericsson">GSM Ericsson</option>
+                                                <option value="MBTS Ericsson">MBTS Ericsson</option>
+                                                <option value="WCDMA Ericsson">WCDMA Ericsson</option>
+                                                <option value="LTE Ericsson">LTE Ericsson</option>
+                                            </optgroup>
+                                            <optgroup label="Huawei">
+                                                <option value="GSM Huawei">GSM Huawei</option>
+                                                <option value="MBTS Huawei">MBTS Huawei</option>
+                                                <option value="WCDMA Huawei">WCDMA Huawei</option>
+                                                <option value="LTE Huawei">LTE Huawei</option>
+                                            </optgroup>
+                                        </select>
+                                    </td>
+                                    <td colspan="2">
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="stampBuilder">
+
+                <div id="stampSettings">
+                    <p>Facilidades: </p>
+                    
+                    <div>
+                        <span>Rota:</span>
+                        <input type="radio" name="infoRota" id="nPrecisaRota" value="nPrecisa" >
+                        <label for="nPrecisaConc">Não Precisa</label>
+                        <input type="radio" name="infoRota" id="precisaRota" value="precisa" checked>
+                        <label for="precisaConc">Precisa</label>
+                    </div>
+                    <div>
+                        <span>Infos Concessionária:</span>
+                        <input type="radio" name="infoConc" id="nPrecisaRota" value="nPrecisa" checked>
+                        <label for="nPrecisaConc">Não Precisa</label>
+                        <input type="radio" name="infoConc" id="precisaRota" value="precisa">
+                        <label for="precisaConc">Precisa</label>
+                    </div>
+                    <div id="infoConcTextDiv">
+                        <span>Tipo do Acionamento da Concessionária</span>
+                        <select name="infoConcText" id="infoConcText">
+                            <option value="padrao">Padrão</option>
+                            <option value="altaDemanda">Alta Demanda</option>
+                            <option value="semUcMedidor">Sem UC/Medidor</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>TP em Atividade:</span>
+                        <input type="radio" name="temTp" id="naoTemTP" value="naoTemTP" checked>
+                        <label for="naoTemTP">Não possui</label>
+                        <input type="radio" name="temTp" id="temTP" value="temTP">
+                        <label for="temTP">Consta TP</label>
+                    </div>
+                    <div>
+                        <span>Tipo Site:</span>
+                        <input type="radio" name="tipoSite" id="tipoSiteCCC" value="CCC">
+                        <label for="tipoSiteCCC">CCC</label>
+                        <input type="radio" name="tipoSite" id="tipoSiteConcentrador" value="Concentrador">
+                        <label for="tipoSiteConcentrador">Concentrador</label>
+                        <input type="radio" name="tipoSite" id="tipoSiteCritico" value="Crítico">
+                        <label for="tipoSiteCritico">Crítico</label>
+                        <input type="radio" name="tipoSite" id="tipoSitePonta" value="Ponta" checked>
+                        <label for="tipoSitePonta">Ponta</label>
+                    </div>
+                </div>
+                <br>
+                <div id="theStamp">
+                    <span>Carimbo:</span>
+                    <div id="trueStamp">
+                        <div class="textarea" id="stampHead" ></div>
+                        <div class="textarea" id="stampMainContent" contenteditable="true"></div>
+                        <div class="textarea" id="stampFast">
+                            <div class="innerTextarea" id="noneGSMRow">GSM Não possui</div>
+                            <div class="innerTextarea" id="noneWCDMARow">WCDMA Não possui</div>
+                            <div class="innerTextarea" id="noneLTERow">LTE Não possui</div>
+                        </div>
+                        <div class="textarea" id="stampInfoRota" contenteditable="true"></div>
+                        <div class="textarea" id="stampInfoConc" contenteditable="true"></div>
+                        <div class="textarea" id="stampInfoTP" contenteditable="true"></div>
+                        <div class="textarea" id="stampFoot"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <button id="btnStampGen">Gerar</button>
+                    <button id="btnStampClear" disabled>Limpar</button>
+                </div>
+
+            </div>
+
+        </main>
+
+        <div id="theFinalStampHead">
+            <p id="theFinalStamp"></p>
+        </div>
+
+        <div id="fastAnalysisAddAlertHead">
+            <p id="fastAnalysisAddAlert"></p>
+        </div>
+
+        <div id="scripts">
+            <script src="utils/jquery-3.5.1.min.js"></script>
+            <script src="utils/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
+            <script src="js/frags/colaboradorInput.js"></script>
+            <script src="js/frags/analiseAgil.js"></script>
+            <script src="js/carimbos.js"></script>
+            <script src="js/stamp.js"></script>
+        </div>
+    </body>
+</html>
