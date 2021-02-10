@@ -28,14 +28,11 @@ function createRow(tecnologia) {
     row += "<select name=\"erbStatus\">";
     row += "<option value=\"Operacional\">Operacional</option>";
 
-    if (tecnologia.includes("GSM")) {
-        row += "<option value=\"Fora de serviço\">Fora de serviço</option>";
-    } else if (tecnologia.includes("Ericsson")) {
-        row += "<option value=\"HeartBeat\">HeartBeat</option>";
-    } else {
-        row += "<option value=\"Fora sem gerência\">Fora sem gerência</option>";
-        row += "<option value=\"Fora com gerência\">Fora com gerência</option>";
-    }
+    if (tecnologia.includes("GSM")) row += "<option value=\"Fora de serviço\">Fora de serviço</option>";
+    else if (tecnologia.includes("Ericsson")) row += "<option value=\"HeartBeat\">HeartBeat</option>";
+    else row += "<option value=\"Fora sem gerência\">Fora sem gerência</option>";
+
+    if (!tecnologia.includes("GSM")) row += "<option value=\"Fora com gerência\">Fora com gerência</option>";
 
     row += "<option value=\"Intermitente\">Intermitente</option>";
     row += "</select>";
