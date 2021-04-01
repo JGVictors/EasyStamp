@@ -41,8 +41,10 @@ function createRow(tecnologia) {
         row += " <select name=\"gsmMeio\">";
         row += "<option value=\"WO\">WO</option>";
         row += "<option value=\"SIA\">SIA</option>";
+        row += "<option value=\"LOF\">LOF</option>";
         row += "<option value=\"RDI\">RDI</option>";
         row += "<option value=\"SIA&LOF\">SIA&LOF</option>";
+        row += "<option value=\"ERATE\">ERATE</option>";
         row += "<option value=\"NONE\">NONE</option>";
         row += "</select>";
     }
