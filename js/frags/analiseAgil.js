@@ -86,11 +86,11 @@ function postRowCreation(tecnologia, row) {
 
         if (has850 && has900 && has1800) return;
         if (has850) {
-            if (has900) newVal = "1800 MHz";
-            else newVal = "900 MHz";
+            if (has1800) newVal = "900 MHz";
+            else newVal = "1800 MHz";
         } else if (has900) {
             if (has850) newVal = "1800 MHz";
-            else newVal = "850";
+            else newVal = "850 MHz";
         } else if (has1800) {
             if (has850) newVal = "900 MHz";
             else newVal = "850 MHz";
