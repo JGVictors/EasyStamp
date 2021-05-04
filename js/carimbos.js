@@ -86,3 +86,5 @@ laginxlox.com
 
 Análise:
 `;
+
+const carimboClear = `@!@ FALHA SISTEMA GI-SDH SIGITM - ALARME NORMALIZADO - Verificado na aba de alarmes ainda não consta CLEAR de normalização impedindo o fechamento da TA. ###Informe e-escalation###`
