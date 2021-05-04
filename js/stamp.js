@@ -15,7 +15,7 @@ function data() {
     let dia = (now.getDate() + "").length == 1 ? "0" + now.getDate() : now.getDate();
     let hora = now.getHours() == "0" ? "00" : (now.getHours() + "").length == 1 ? "0" + now.getHours() : now.getHours();
     let minuto = now.getMinutes() == "0" ? "00" : (now.getMinutes() + "").length == 1 ? "0" + now.getMinutes() : now.getMinutes();
-    return ano + "/" + mes + "/" + dia + " - " + hora + ":" + minuto;
+    return ano + "/" + mes + "/" + dia + " " + hora + ":" +  minuto;
 }
 
 function updateStampHead() {
