@@ -9,8 +9,8 @@ var stampTipoSite = $("#stampTipoSite");
 var stampFoot = $("#stampFoot");
 var lastAnalise;
 
-function data() {
-    let now = new Date(Date.now());
+function data(dataBase = Date.now()) {
+    let now = new Date(dataBase);
     let ano = now.getFullYear();
     let mes = ((now.getMonth() + 1) + "").length == 1 ? "0" + (now.getMonth() + 1) : (now.getMonth() + 1);
     let dia = (now.getDate() + "").length == 1 ? "0" + now.getDate() : now.getDate();

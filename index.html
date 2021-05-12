@@ -195,8 +195,33 @@
         </div>
 
         <div id="monitoracaoStampHead">
-            <div id="monitoracaoStampBody"></div>
-            <p id="monitoracaoStamp"></p>
+            <div id="monitoracaoStampBody">
+                <label for="tempoMonitoracao">Tempo em Monitoração:</label>
+                <input type="number" id="tempoMonitoracao" placeholder="Horas" min="1">
+                <label for="limiteMonitoracao">Limite:</label>
+                <span>   
+                    <input type="text" id="limiteMonitoracao" placeholder="Data Limite" value="" disabled>
+                </span>
+                <br>
+                <label for="motivoMonitoracao">Motivo da Monitoração:</label>
+                <input type="text" id="motivoMonitoracao" placeholder="Selecione">
+                <br>
+                <div id="monitoracaoTp">
+                    <label for="numTpRaiz">Número TP Raiz</label>
+                    <input type="text" id="numTpRaiz" placeholder="0000000000">
+                    <br>
+                </div>
+                <span>Incluir Ánalise: </span>
+                <input type="checkbox" name="motIncluiAnalise" id="motPrecisaAnalise" value="precisa" checked>
+                <br>
+                <span>Observação:</span>
+                <div class="textarea textarea-allborder" id="obsMonitoracao" contenteditable="true"></div>
+                
+                <div id="popMotStamp">
+                    <hr>
+                    <div class="textarea textarea-allborder textarea-blocked" id="monitoracaoStamp"></div>
+                </div>
+            </div>
         </div>
 
         <div id="clearStampHead">
