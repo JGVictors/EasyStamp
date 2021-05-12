@@ -1,6 +1,6 @@
-init();
+loadAnaliseAgil();
 
-function init() { tableEvents(); }
+function loadAnaliseAgil() { tableEvents(); }
 
 function createRow(tecnologia) {    
 
@@ -122,17 +122,11 @@ function removeAllRows() { $('tbody').find('tr').each(function () { removeRow($(
 
 function tableEvents() {
 
-    $('#btnAdicionaERB').click(function () {
-        isOkayToCreateARow($("select[name=tecnologias]").val());
-     });
+    $('#btnAdicionaERB').click(function () { isOkayToCreateARow($("select[name=tecnologias]").val()); });
 
-    $('tbody').on('click', '.btnRemoveERB', function () {
-        removeRow($(this));
-    });
+    $('tbody').on('click', '.btnRemoveERB', function () { removeRow($(this)); });
 
-    $('tbody').on('change keyup', function(event) { 
-        updateAnalysis($(event.target).closest('tr'))
-    })
+    $('tbody').on('change keyup', function(event) { updateAnalysis($(event.target).closest('tr')) })
 
     $('tbody').on('change', 'select[name=gsmFrequencia], input[name=erbNum]', function(event) {
         updateAnalysis($(event.target).closest('tr'))
@@ -158,9 +152,7 @@ function tableEvents() {
 
 }
 
-function forceUpdateRows() {
-    $('tbody').find('select, input').change();
-}
+function forceUpdateRows() { $('tbody').find('select, input').change(); }
 
 function isOkayToCreateARow(tecnologia) {
 
@@ -334,9 +326,7 @@ function createAnalysisDiv(row) {
     $("<div class=\"innerTextarea\" contenteditable=\"true\" data-createTime="+ row.attr('data-createTime') +"></div>").text(getERBStatusText(row)).appendTo('#stampFast');
 }
 
-function updateAnalysis(row) {
-    $('div[data-createTime=' + row.attr('data-createTime') + ']').text(getERBStatusText(row))
-}
+function updateAnalysis(row) { $('div[data-createTime=' + row.attr('data-createTime') + ']').text(getERBStatusText(row)) }
 
 function reviewAnalysisDivs() {
     let erbs = getAllERBs();

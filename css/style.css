@@ -10,22 +10,17 @@ main > div {
     border: solid lemonchiffon;
 }
 
-main > div > div {
-    margin: 5px;
-}
+main > div > div { margin: 5px; }
 
-#stampUser > div {
-    display: inline-block;
-}
+#stampUser > div { display: inline-block; }
+
 #colaborador {
     padding: 2px;
     padding-left: 4px;
     width: 294px;
 }
 
-#addColaborador {
-    font-weight: bold;
-}
+#addColaborador { font-weight: bold; }
 
 .ui-menu.colaboradores {
     max-width: 306px;
@@ -43,51 +38,34 @@ main > div > div {
     border-color: rgba(0, 0, 0, 0.1);
 }
 
-.readingColaborador {
-    color: lightsteelblue;
-}
+.readingColaborador { color: lightsteelblue; }
 
-.validColaborador {
-    color: darkslategray;
-}
+.validColaborador { color: darkslategray; }
 
-.notValidColaborador {
-    color: darkred;
-}
+.notValidColaborador { color: darkred; }
 
-button span {
-    font-size: xx-small;
-}
+button span { font-size: xx-small; }
 
-#theStamp * {
-    display: block;
-}
-
+#theStamp * { display: block; }
 
 table {
     display: inline-block;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: rgb(250, 255, 253);
 }
 
 td, th {
     text-align: left;
-    border: 1px solid rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     padding: 4px;
     padding-top: 3px;
     padding-bottom: 3px;
     white-space: nowrap;
-    background-color: rgba(255, 255, 255, 0.4);
 }
 
 th {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255);
     text-align: center;
     font-weight: normal;
-}
-
-#linhaAddERB td {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    background-color: rgba(255, 255, 255, 0.6);
 }
 
 #btnAdicionaERB, .btnRemoveERB { width: 25px; }
@@ -115,31 +93,61 @@ input[name="nomeERB"] { width: 125px; }
 
 #stampFast { white-space: normal; }
 
-#stampHead, #stampFoot, #retencaoStamp {
+.textarea-blocked {
+    border: solid 2px rgb(250, 250, 250);   
     background-color: rgb(250, 250, 250);
 }
 
-.textarea:first-child {
-    margin-top: 20px;
-    border-top: solid 2px whitesmoke;
-}
+.textarea:first-child { margin-top: 20px; }
 
-.textarea:last-child {
-    margin-bottom: 20px;
-    border-bottom: solid 2px whitesmoke;
-}
+.textarea:last-child { margin-bottom: 20px; }
+
+.textarea-allborder { border: solid 2px whitesmoke; }
 
 div[contenteditable="true"]:active.textarea,
 div[contenteditable="true"]:focus.textarea,
-.textarea:hover{
+.textarea:hover {
     border: solid 2px gainsboro;
     outline: none;
+}
+
+input[type="text"] {
+    padding-top: 2px;
+    padding-bottom: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 85%;
+}
+
+input, select, button {
+    background-color: white;
+    border: solid 2px whitesmoke;
+}
+
+button { 
+    margin-bottom: 4px;
+    border: solid 3px gainsboro; 
+}
+
+button:disabled { background-color: rgba(235, 235, 235); }
+
+input:active, input:focus, input:hover,
+select:active, select:focus, select:hover { 
+    border-color: gainsboro; 
+    outline: none;
+}
+
+input:disabled {
+    background-color: whitesmoke;
+    border-color: gainsboro;
 }
 
 #btnStampGen, #btnStampClear, #btnGenRetencaoStamp {
     font-weight: bold;
     margin-bottom: 20px;
 }
+
+.ui-widget-content { background-color: rgb(250, 255, 253) }
 
 .ui-dialog, .ui-dialog-buttonset .ui-button {
     font-family: monospace;
@@ -161,12 +169,15 @@ div[contenteditable="true"]:focus.textarea,
     opacity: 0.85;
 }
 
-#obsRetencao, #retencaoStamp {
+#obsRetencao {
     margin-top: 8px;
     min-height: 24px;
     margin-bottom: 12px;
 }
 
-#retencaoStamp { margin-top: 12px; }
+#retencaoStamp { 
+    margin-top: 12px;
+    margin-bottom: 0;
+}
 
 #genRetStamp { font-size: initial; }

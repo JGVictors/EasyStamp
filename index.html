@@ -95,6 +95,8 @@
                 </div>
             </div>
 
+            <br>
+
             <div id="stampBuilder">
 
                 <div id="stampSettings">
@@ -146,7 +148,7 @@
                 <div id="theStamp">
                     <span>Carimbo:</span>
                     <div id="trueStamp">
-                        <div class="textarea" id="stampHead" ></div>
+                        <div class="textarea textarea-blocked" id="stampHead" ></div>
                         <div class="textarea" id="stampMainContent" contenteditable="true"></div>
                         <div class="textarea" id="stampFast">
                             <div class="innerTextarea" id="noneGSMRow">GSM Não possui</div>
@@ -156,7 +158,8 @@
                         <div class="textarea" id="stampInfoRota" contenteditable="true"></div>
                         <div class="textarea" id="stampInfoConc" contenteditable="true"></div>
                         <div class="textarea" id="stampInfoTP" contenteditable="true"></div>
-                        <div class="textarea" id="stampFoot"></div>
+                        <div class="textarea textarea-blocked" id="stampTipoSite"></div>
+                        <div class="textarea textarea-blocked" id="stampFoot"></div>
                     </div>
                 </div>
 
@@ -170,7 +173,7 @@
         </main>
 
         <div id="theFinalStampHead">
-            <p id="theFinalStamp"></p>
+            <p class="textarea textarea-allborder textarea-blocked" id="theFinalStamp"></p>
         </div>
 
         <div id="fastAnalysisAddAlertHead">
@@ -179,14 +182,14 @@
 
         <div id="retencaoStampHead">
             <div id="retencaoStampBody">
-                <span>Número TA Raiz:</span>
-                <input type="textarea" id="numRetencao" placeholder="0000000000" value="0000000000">
+                <label for="numRetencao">Número TA Raiz:</label>
+                <input type="text" id="numRetencao" placeholder="0000000000" value="0000000000">
                 <br>
                 <span>Observação:</span>
-                <div class="textarea" id="obsRetencao" contenteditable="true">Atualização através da TA Raiz.</div>
+                <div class="textarea textarea-allborder" id="obsRetencao" contenteditable="true">Atualização através da TA Raiz.</div>
                 <div id="popRetStamp">
                     <hr>
-                    <div class="textarea" id="retencaoStamp"></div>
+                    <div class="textarea textarea-allborder textarea-blocked" id="retencaoStamp"></div>
                 </div>
             </div>
         </div>
@@ -197,7 +200,7 @@
         </div>
 
         <div id="clearStampHead">
-            <p id="clearStamp"></p>
+            <p class="textarea textarea-allborder" id="clearStamp"></p>
         </div>
 
         <div id="scripts">

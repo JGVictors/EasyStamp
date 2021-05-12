@@ -6,7 +6,7 @@ $("#btnClear").click(function () {
         draggable: false,
         resizable: false,
         heigth: 'auto',
-        width: '90%'
+        width: 'auto'
     });
     navigator.clipboard.writeText(carimboClear);
 });

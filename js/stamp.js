@@ -5,6 +5,7 @@ var stampMainContent = $("#stampMainContent");
 var stampInfoRota = $("#stampInfoRota");
 var stampInfoConc = $("#stampInfoConc");
 var stampInfoTP = $("#stampInfoTP");
+var stampTipoSite = $("#stampTipoSite");
 var stampFoot = $("#stampFoot");
 var lastAnalise;
 
@@ -59,16 +60,15 @@ function updateInfoConcText(tipo) {
 }
 
 function updateInfoTP() {
-    stampInfoTP.text($("input[name=temTp]:checked").val() == "naoTemTP" ? "Não consta TP" : "OBS: Se consta TP favor trocar este teste por informação complementar!");
+    stampInfoTP.text($("input[name=temTp]:checked").val() == "naoTemTP" ? "Não consta TP" : "OBS: Se consta TP favor trocar este texto por informação complementar!");
 }
 
-function textoTipoSite() {
-    return "Site " + $("input[name=tipoSite]:checked").val();
+function updateTipoSite() {
+    stampTipoSite.text("Site " + $("input[name=tipoSite]:checked").val());
 }
 
 function updateStampFoot() {
-    stampFoot.text(textoTipoSite() + "\n" +
-     $("#colaborador").val() + " CO-RAM Icomon\n" +
+    stampFoot.text($("#colaborador").val() + " CO-RAM Icomon\n" +
     "###Informe e-escalation###\n" +
     "#prisma-wfm");
 }
@@ -84,6 +84,7 @@ function attCarimbo() {
     updateInfoConc();
     updateInfoConcText("padrao");
     updateInfoTP();
+    updateTipoSite();
     updateStampFoot();
 }
 
@@ -170,27 +171,34 @@ $('#infoConcText').change( function () { updateInfoConcText($(this).val()); });
 
 $('input[name="temTp"]').change( function () { updateInfoTP(); });
 
-$('input[name="tipoSite"]').change( function () { updateStampFoot(); });
+$('input[name="tipoSite"]').change( function () { updateTipoSite(); });
 
-$("[contenteditable]").on("paste", function () {
-    let este = $(this);
-    setTimeout(function() { este.text(este.text()); }, 10);
-})
+$(".textarea").on("paste", function (e) {
+    e.preventDefault();
+    document.execCommand("insertHTML", false, (e.originalEvent || e).clipboardData.getData('text/plain'));
+});
+
+function mountAnalisys(onlyAnalysis = true) {
+    let analisys = "";
+    let visibleParts = $("#trueStamp").find(".textarea:visible");
+    visibleParts = visibleParts.not("#stampHead");
+    visibleParts = visibleParts.not("#stampFoot");
+    
+    visibleParts.each(function () {
+        if (this.id == "stampFast") $(this).find(".innerTextarea:visible").each( function() { analisys += this.outerText.replace("\n\n", "\n") + "\n" }) 
+        else analisys += this.outerText + "\n"; 
+    });
+    analisys = analisys.replace(new RegExp("\n$"), "");
+
+    let allowLBreaks = (lastAnalise == "p1Solicitacao");
+    if (!onlyAnalysis) analisys = $("#stampHead").text() + (allowLBreaks ? "\n\n" : "\n") + analisys + (allowLBreaks ? "\n\n" : "\n") + $("#stampFoot").text();
+    if (!allowLBreaks) while (new RegExp("\n\n", "gi").test(analisys)) { analisys = analisys.replace("\n\n", "\n"); }
+
+    return analisys;
+}
 
 $("#btnStampGen").click( function () {
-
-    let visibleParts = $(".textarea:visible");
-
-    let theFinalStamp = "";
-    visibleParts.each( function(index) {
-        if (this.id == "stampFast") $(".innerTextarea:visible").each(function () { theFinalStamp += $(this).text() + "\n"; });
-        if (this.id == "stampFast") return;
-        
-        if (index == 1 && lastAnalise == "p1Solicitacao") theFinalStamp += "\n";
-        theFinalStamp += $(this).text() + (visibleParts.length == index + 1 ? "" : "\n"); 
-    });
-    
-    if (!(lastAnalise == "p1Solicitacao")) while (new RegExp("\n\n", "gi").test(theFinalStamp)) { theFinalStamp = theFinalStamp.replace("\n\n", "\n"); }
+    let theFinalStamp = mountAnalisys(false);
 
     $("#theFinalStamp").text(theFinalStamp);
     $("#theFinalStampHead").dialog({
@@ -202,7 +210,7 @@ $("#btnStampGen").click( function () {
         width: 'auto'
     });
     
-    navigator.clipboard.writeText($("#theFinalStamp").text()) 
+    navigator.clipboard.writeText(theFinalStamp); 
 });
 
 $(window).resize(function () {
