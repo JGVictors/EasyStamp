@@ -25,8 +25,14 @@ function addColaborador(colaborador) {
 
 inputColaborador.on("input focus", function() {
     inputColaborador.removeClass("validColaborador notValidColaborador");
-    if (colaboradores.some(e => new RegExp(inputColaborador.val(), "gi").test(e))) inputColaborador.addClass("validColaborador");
-    else inputColaborador.addClass("readingColaborador");
+    if (colaboradores.some(e => new RegExp(inputColaborador.val(), "gi").test(e))) {
+        inputColaborador.addClass("validColaborador");
+        buttonAddColaborador.prop('disabled', true);
+    } else {
+        inputColaborador.addClass("readingColaborador");
+        buttonAddColaborador.prop('disabled', false);
+    } 
+    updateStampFoot();
 });
 
 inputColaborador.focusout(function() {

@@ -25,11 +25,9 @@ $("#btnRetencao").click(function () {
 });
 
 function mountRetStamp() {
-    let finalRetencaoStamp = "*P1 " + data() + " @!@RETENÇÃO\n" +
+    return "*P1 " + data() + " @!@RETENÇÃO\n" +
     "TA Raiz: " + $("#numRetencao").val() + "\n" +
     "OBS: " + $("#obsRetencao").text().trim() + "\n" +
     $("#colaborador").val() + " CO-RAM Icomon\n" +
     "###Informe e-escalation###";
-
-    return finalRetencaoStamp;
 }   

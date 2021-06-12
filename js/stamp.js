@@ -1,3 +1,5 @@
+$("#theFinalStampHead").hide();
+
 var infoConcTextDiv = $("#infoConcTextDiv");
 
 var stampHead = $("#stampHead");
@@ -7,6 +9,7 @@ var stampInfoConc = $("#stampInfoConc");
 var stampInfoTP = $("#stampInfoTP");
 var stampTipoSite = $("#stampTipoSite");
 var stampFoot = $("#stampFoot");
+var cleanSpaces = $("#cleanSpaces");
 var lastAnalise;
 
 function data(dataBase = Date.now()) {
@@ -20,14 +23,14 @@ function data(dataBase = Date.now()) {
 }
 
 function updateStampHead() {
-    stampHead.text("*P1 " + data() + " @!@ACIONADO CAMPO P1");
+    stampHead.find(".innerTextarea").text("*P1 " + data() + " @!@ACIONADO CAMPO P1");
 }
 
 function updateInfoRota(isIsolado) {
     if ($("input[name=infoRota]:checked").val() == "nPrecisa") {
         stampInfoRota.hide()
     } else {
-        stampInfoRota.text(isIsolado ? infoRotaMetro : infoRota)
+        stampInfoRota.find(".innerTextarea").text(isIsolado ? infoRotaMetro : infoRota)
         stampInfoRota.show(); 
     }
 }
@@ -45,30 +48,30 @@ function updateInfoConc() {
 function updateInfoConcText(tipo) {
     switch(tipo) {
         case "padrao":
-            stampInfoConc.text(infoConcessionaria)
+            stampInfoConc.find(".innerTextarea").text(infoConcessionaria)
             break;
         case "altaDemanda":
-            stampInfoConc.text("OBS: Não foi possível abrir chamado com a concessionária devido a alta demanda de chamados.")
+            stampInfoConc.find(".innerTextarea").text("OBS: Não foi possível abrir chamado com a concessionária devido a alta demanda de chamados.")
             break;
         case "semUcMedidor": 
-            stampInfoConc.text("OBS: Não foi possível abrir chamado com a concessionária devido a falta de dados da UC/Medidor.")
+            stampInfoConc.find(".innerTextarea").text("OBS: Não foi possível abrir chamado com a concessionária devido a falta de dados da UC/Medidor.")
             break;
         case "outro":
-            stampInfoConc.text("OBS: Não foi possível abrir chamado com a concessionária com os dados disponíveis.")
+            stampInfoConc.find(".innerTextarea").text("OBS: Não foi possível abrir chamado com a concessionária com os dados disponíveis.")
             break;
     }
 }
 
 function updateInfoTP() {
-    stampInfoTP.text($("input[name=temTp]:checked").val() == "naoTemTP" ? "Não consta TP" : "OBS: Se consta TP favor trocar este texto por informação complementar!");
+    stampInfoTP.find(".innerTextarea").text($("input[name=temTp]:checked").val() == "naoTemTP" ? "Não consta TP" : "OBS: Se consta TP favor trocar este texto por informação complementar!");
 }
 
 function updateTipoSite() {
-    stampTipoSite.text("Site " + $("input[name=tipoSite]:checked").val());
+    stampTipoSite.find(".innerTextarea").text("Site " + $("input[name=tipoSite]:checked").val());
 }
 
 function updateStampFoot() {
-    stampFoot.text($("#colaborador").val() + " CO-RAM Icomon\n" +
+    stampFoot.find(".innerTextarea").text($("#colaborador").val() + " CO-RAM Icomon\n" +
     "###Informe e-escalation###\n" +
     "#prisma-wfm");
 }
@@ -113,6 +116,9 @@ $(".btnAnalise").click( function() {
     if(lastAnalise == "p1MetroIsolado" || btn.attr("id") != "p1MetroIsolado") updateInfoRota(false);
     if(btn.attr("id") == "p1MetroIsolado") updateInfoRota(true);
     
+    if (btn.attr("id") == "p1Ericsson" || btn.attr("id") == "p1Huawei") { if (lastAnalise != null) $("html, body").animate( { scrollTop: $("#fastAnalysisDiv").offset().top }, "slow" ); }
+    else $("html, body").animate( { scrollTop: $("#theStamp").offset().top }, "slow" );
+    
     lastAnalise = btn.attr("id");
 
     notErbAnalysis = ["p1MetroQuedaP2P", "p1MetroQuedaInfo1S", "p1MetroTemperatura", "p1TX"]
@@ -138,22 +144,23 @@ $(".btnAnalise").click( function() {
             huaweiAnalysis();
             break;
         case "p1MetroIsolado": 
-            stampMainContent.text(carimboMetroIsolado);
+            stampMainContent.find(".innerTextarea").text(carimboMetroIsolado);
             break;
         case "p1MetroQuedaP2P": 
-            stampMainContent.text(carimboMetroP2P);
+            stampMainContent.find(".innerTextarea").text(carimboMetroP2P);
             break;
         case "p1MetroQuedaInfo1S": 
-            stampMainContent.text(carimboMetroInfo1S);
+            stampMainContent.find(".innerTextarea").text(carimboMetroInfo1S);
             break;
         case "p1MetroTemperatura": 
-            stampMainContent.text(carimboMetroTemperatura);
+            stampMainContent.find(".innerTextarea").text(carimboMetroTemperatura);
             break;
         case "p1TX": 
-            stampMainContent.text(carimboTX);
+            stampMainContent.find(".innerTextarea").text(carimboTX);
             break;
         case "p1Solicitacao": 
-            stampMainContent.text(carimboSolicitacao);
+            stampMainContent.find(".innerTextarea").text(carimboSolicitacao);
+            cleanSpaces.prop("checked", false);
             break;
     }
 });
@@ -183,16 +190,17 @@ function mountAnalisys(onlyAnalysis = true) {
     let visibleParts = $("#trueStamp").find(".textarea:visible");
     visibleParts = visibleParts.not("#stampHead");
     visibleParts = visibleParts.not("#stampFoot");
-    
+    visibleParts = visibleParts.not(".textareaOculta");
+
     visibleParts.each(function () {
         if (this.id == "stampFast") $(this).find(".innerTextarea:visible").each( function() { analisys += this.outerText.replace("\n\n", "\n") + "\n" }) 
-        else analisys += this.outerText + "\n"; 
+        else analisys += $(this).find(".innerTextarea")[0].outerText + "\n"; 
     });
     analisys = analisys.replace(new RegExp("\n$"), "");
 
-    let allowLBreaks = (lastAnalise == "p1Solicitacao");
-    if (!onlyAnalysis) analisys = $("#stampHead").text() + (allowLBreaks ? "\n\n" : "\n") + analisys + (allowLBreaks ? "\n\n" : "\n") + $("#stampFoot").text();
-    if (!allowLBreaks) while (new RegExp("\n\n", "gi").test(analisys)) { analisys = analisys.replace("\n\n", "\n"); }
+    let allowLBreaks = (cleanSpaces.is(":checked"));
+    if (!onlyAnalysis) analisys = ($("#stampHead").hasClass("textareaOculta") ? "" : $("#stampHead").find(".innerTextarea").text() + (!allowLBreaks ? "\n\n" : "\n")) + analisys + ($("#stampFoot").hasClass("textareaOculta") ? "" : (!allowLBreaks ? "\n\n" : "\n") + $("#stampFoot").find(".innerTextarea").text());
+    if (allowLBreaks) while (new RegExp("\n\n", "gi").test(analisys)) { analisys = analisys.replace("\n\n", "\n"); }
 
     return analisys;
 }

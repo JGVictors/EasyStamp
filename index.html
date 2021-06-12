@@ -34,6 +34,9 @@
                     <div>
                         <button id="btnRetencao">Retenção</button>
                         <button id="btnMonitoracao">Monitoração</button>
+                        <button id="btnSuporteTX">Suporte TX</button>
+                        <button id="btnAnaliseTX">Análise TX</button>
+                        <button id="btnPendencia">Pendência</button>
                         <button id="btnClear">Clear</button>
                     </div>
                     <br>
@@ -148,24 +151,48 @@
                 <div id="theStamp">
                     <span>Carimbo:</span>
                     <div id="trueStamp">
-                        <div class="textarea textarea-blocked" id="stampHead" ></div>
-                        <div class="textarea" id="stampMainContent" contenteditable="true"></div>
+                        <div class="textarea textarea-blocked" id="stampHead" >
+                            <span class="innerTextarea" contenteditable="true"></span>
+                        </div>
+
+                        <div class="textarea" id="stampMainContent">
+                            <span class="innerTextarea" contenteditable="true"></span>
+                        </div>
+
                         <div class="textarea" id="stampFast">
                             <div class="innerTextarea" id="noneGSMRow">GSM Não possui</div>
                             <div class="innerTextarea" id="noneWCDMARow">WCDMA Não possui</div>
                             <div class="innerTextarea" id="noneLTERow">LTE Não possui</div>
                         </div>
-                        <div class="textarea" id="stampInfoRota" contenteditable="true"></div>
-                        <div class="textarea" id="stampInfoConc" contenteditable="true"></div>
-                        <div class="textarea" id="stampInfoTP" contenteditable="true"></div>
-                        <div class="textarea textarea-blocked" id="stampTipoSite"></div>
-                        <div class="textarea textarea-blocked" id="stampFoot"></div>
+
+                        <div class="textarea" id="stampInfoRota">
+                            <span class="innerTextarea" contenteditable="true"></span>
+                        </div>
+
+                        <div class="textarea" id="stampInfoConc">
+                            <span class="innerTextarea" contenteditable="true"></span>
+                        </div>
+
+                        <div class="textarea" id="stampInfoTP">
+                            <span class="innerTextarea" contenteditable="true"></span>
+                        </div>
+
+                        <div class="textarea textarea-blocked" id="stampTipoSite">
+                            <span class="innerTextarea"></span>
+                        </div>
+
+                        <div class="textarea textarea-blocked" id="stampFoot">
+                            <span class="innerTextarea"></span>
+                        </div>
                     </div>
                 </div>
 
                 <div>
-                    <button id="btnStampGen">Gerar</button>
-                    <button id="btnStampClear" disabled>Limpar</button>
+                    <div id="cleanSpacesDiv">
+                        <span>Excluir linhas em branco da análise</span>
+                        <input type="checkbox" name="cleanSpaces" id="cleanSpaces" value="precisa" checked>
+                    </div>
+                    <button id="btnStampGen">Gerar e Copiar Carimbo</button>
                 </div>
 
             </div>
@@ -173,7 +200,7 @@
         </main>
 
         <div id="theFinalStampHead">
-            <p class="textarea textarea-allborder textarea-blocked" id="theFinalStamp"></p>
+            <p class="textarea innerTextarea textarea-allborder textarea-blocked" id="theFinalStamp"></p>
         </div>
 
         <div id="fastAnalysisAddAlertHead">
@@ -186,10 +213,10 @@
                 <input type="text" id="numRetencao" placeholder="0000000000" value="0000000000">
                 <br>
                 <span>Observação:</span>
-                <div class="textarea textarea-allborder" id="obsRetencao" contenteditable="true">Atualização através da TA Raiz.</div>
+                <div class="textarea innerTextarea textarea-allborder" id="obsRetencao" contenteditable="true">Atualização através da TA Raiz.</div>
                 <div id="popRetStamp">
                     <hr>
-                    <div class="textarea textarea-allborder textarea-blocked" id="retencaoStamp"></div>
+                    <div class="textarea innerTextarea textarea-allborder textarea-blocked" id="retencaoStamp"></div>
                 </div>
             </div>
         </div>
@@ -215,17 +242,44 @@
                 <input type="checkbox" name="motIncluiAnalise" id="motPrecisaAnalise" value="precisa" checked>
                 <br>
                 <span>Observação:</span>
-                <div class="textarea textarea-allborder" id="obsMonitoracao" contenteditable="true"></div>
+                <div class="textarea innerTextarea textarea-allborder" id="obsMonitoracao" contenteditable="true"></div>
                 
                 <div id="popMotStamp">
                     <hr>
-                    <div class="textarea textarea-allborder textarea-blocked" id="monitoracaoStamp"></div>
+                    <div class="textarea innerTextarea textarea-allborder textarea-blocked" id="monitoracaoStamp"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="suporteTXStampHead">
+            <p class="textarea innerTextarea textarea-allborder" id="suporteTXStamp"></p>
+        </div>
+
+        <div id="analiseTXStampHead">
+            <div id="analiseTXStampBody">
+                <label for="numAnaliseTX">Número TA para Análise:</label>
+                <input type="text" id="numAnaliseTX" placeholder="0000000000" value="0000000000">
+                <br>
+                <div id="popAnlsTXStamp">
+                    <hr>
+                    <div class="textarea innerTextarea textarea-allborder textarea-blocked" id="analiseTXStamp"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pendenciaStampHead">
+            <div id="pendenciaStampBody">
+                <span>Observação:</span>
+                <div class="textarea innerTextarea textarea-allborder" id="obsPendencia" contenteditable="true">Descreva o motivo da pendência, indique onde está os testes sendo no próprio histórico da TA ou se seguem em anexo...</div>
+                <div id="popPendStamp">
+                    <hr>
+                    <div class="textarea innerTextarea textarea-allborder textarea-blocked" id="pendenciaStamp"></div>
                 </div>
             </div>
         </div>
 
         <div id="clearStampHead">
-            <p class="textarea textarea-allborder" id="clearStamp"></p>
+            <p class="textarea innerTextarea textarea-allborder" id="clearStamp"></p>
         </div>
 
         <div id="scripts">
@@ -236,9 +290,13 @@
             <script src="js/frags/analiseAgil.js"></script>
             <script src="js/carimbos.js"></script>
             <script src="js/stamp.js"></script>
-            <script src="js/frags/retencao.js"></script>
-            <script src="js/frags/monitoracao.js"></script>
-            <script src="js/frags/clear.js"></script>
+            <script src="js/frags/carimbosExtras/retencao.js"></script>
+            <script src="js/frags/carimbosExtras/monitoracao.js"></script>
+            <script src="js/frags/carimbosExtras/suporteTX.js"></script>
+            <script src="js/frags/carimbosExtras/analiseTX.js"></script>
+            <script src="js/frags/carimbosExtras/pendencia.js"></script>
+            <script src="js/frags/carimbosExtras/clear.js"></script>
+            <script src="js/frags/textareaControls.js"></script>
         </div>
     </body>
 </html>

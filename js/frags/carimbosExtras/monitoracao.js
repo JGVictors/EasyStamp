@@ -1,9 +1,8 @@
-//VALIDAR SE TEM MOTIVO DE MONITORAÇÃO E VALIDAR SE TEM TEMPO!
-
 var tempoMotInput = $("#tempoMonitoracao");
 var limiteMotInput = $("#limiteMonitoracao");
 var motivoMotInput = $("#motivoMonitoracao");
 var obsMotInput = $("#obsMonitoracao");
+var numTpRaiz = $("#numTpRaiz");
 
 loadMot();
 
@@ -11,18 +10,21 @@ function loadMot() {
     $("#monitoracaoStampHead").hide();
     $("#monitoracaoTp").hide();
     motEvents();
+
+    motivoMotInput.val("Tíquete Programado");
+    motivoMotInput.trigger("change");
 }
 
 function dataLimiteMot() { return data(Date.now() + ($("#tempoMonitoracao").val() * 60 * 60000)); }
 
 function motEvents() {
 
-    $("#motivoMonitoracao").autocomplete({ 
-        source: ["Tíquete Programado"," Área de Risco", "Com Impedimento", "Acesso Dificultado"],
+    motivoMotInput.autocomplete({ 
+        source: ["Tíquete Programado"],
         delay: "0",
         classes: { "ui-autocomplete" : "motivosMonitoracao" },
         open: function () { $(".motivosMonitoracao").css("z-index", Number($(this).parents().find(".ui-dialog").css("z-index")) + 1); },
-        change: function () { isMotDeTP() ? monitoracaoDeTP(true) : monitoracaoDeTP (false); }
+        select: function () { setTimeout( function() { motivoMotInput.trigger("change") }, 50); }
     });
 
     $("#btnMonitoracao").click(function () {
@@ -53,7 +55,7 @@ function motEvents() {
 
     tempoMotInput.on("change keyup", function () { updateDataLimite() });
 
-    motivoMotInput.on("change", function() { isMotDeTP() ? monitoracaoDeTP(true) : monitoracaoDeTP (false); });
+    motivoMotInput.on("change keyup", function() { isMotDeTP() ? monitoracaoDeTP(true) : monitoracaoDeTP (false); });
 
     limiteMotInput.parent().on("click", function (e) {
         if (limiteMotInput.val() == "") return;
@@ -82,17 +84,17 @@ function motEvents() {
 
 }
 
-function updateDataLimite() { limiteMotInput.val(data(Date.now() + ($("#tempoMonitoracao").val() * 60 * 60000))); }
+function updateDataLimite() { limiteMotInput.val(data(Date.now() + (tempoMotInput.val() * 60 * 60000))); }
 
 function isMotDeTP() { return motivoMotInput.val() == "Tíquete Programado" }
 
 function monitoracaoDeTP(isMotDeTP) {
     if (isMotDeTP) {
-        $("#monitoracaoTp").show();
         $("#motPrecisaAnalise").prop("checked", false);
+        $("#monitoracaoTp").show();
     } else {
-        $("#monitoracaoTp").hide();
         $("#motPrecisaAnalise").prop("checked", true);
+        $("#monitoracaoTp").hide();
     }
 }
 
@@ -106,7 +108,7 @@ function validaCampos() {
         valido = false;
     }
     
-    if (motivoMotInput.val().length == 0) {
+    if (motivoMotInput.val().trim().length == 0) {
         motivoMotInput.effect("shake", { distance: 5 });
         motivoMotInput.addClass("inputInvalido");
         setTimeout(function () { motivoMotInput.removeClass("inputInvalido"); }, 800);
@@ -114,6 +116,12 @@ function validaCampos() {
     }
 
     if (isMotDeTP()) {
+        if (numTpRaiz.val().trim().length == 0) {
+            numTpRaiz.effect("shake", { distance: 5});
+            numTpRaiz.addClass("inputInvalido");
+            setTimeout(function () { numTpRaiz.removeClass("inputInvalido"); }, 800);
+            valido = false;
+        }
         if (obsMotInput.text().trim().length == 0) {
             obsMotInput.effect("shake", { distance: 5 });
             obsMotInput.addClass("inputInvalido");
@@ -132,13 +140,11 @@ function validaCampos() {
 }
 
 function mountMotStamp() {
-    let finalRetencaoStamp = "*P1 " + limiteMotInput.val() + " @!@MONITORAÇÃO P1\n" +
-    "Tempo de Monitoração: " + tempoMotInput.val() + " horas" + "\n" +
-    (isMotDeTP() ? ("TP Raiz: " + $("#numTpRaiz").val() + "\n") : ("Motivo: " + motivoMotInput.val() + "\n")) +
+    return "*P1 " + limiteMotInput.val() + " @!@MONITORAÇÃO P1\n" +
+    "Tempo de Monitoração: " + tempoMotInput.val() + (tempoMotInput.val() == 1 ? " hora" : " horas") + "\n" +
+    (isMotDeTP() ? ("TP Raiz: " + numTpRaiz.val() + "\n") : ("Motivo: " + motivoMotInput.val() + "\n")) +
     (obsMotInput.text().trim().length > 0 ? "OBS: " + obsMotInput.text().trim() + "\n" : "") +
     ($("#motPrecisaAnalise").is(":checked") ? mountAnalisys() + "\n" : "") +
     $("#colaborador").val() + " CO-RAM Icomon\n" +
     "###Informe e-escalation###";
-
-    return finalRetencaoStamp;
 }

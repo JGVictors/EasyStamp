@@ -1,3 +1,5 @@
+$("#clearStampHead").hide();
+
 $("#btnClear").click(function () {
     $("#clearStamp").text(carimboClear);
     $("#clearStampHead").dialog({

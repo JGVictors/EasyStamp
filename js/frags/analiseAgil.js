@@ -280,11 +280,11 @@ function sortTable() {
     $('tbody').find('tr').slice('1').remove();
     sortedTable.appendTo('tbody');
 
-    let sortedDivs = $('#stampFast').children().sort(function (a,b) {
+    let sortedDivs = $('#stampFast').children().not(".textareaOverlay").sort(function (a,b) {
         return (isANoneDiv(b) ? noneDivValue(b) : sortValue($('tr[data-createTime=' + $(b).attr('data-createTime') + ']')))
              - (isANoneDiv(a) ? noneDivValue(a) : sortValue($('tr[data-createTime=' + $(a).attr('data-createTime') + ']'))) 
     })
-    $('#stampFast').children().remove();
+    $('#stampFast').children().not(".textareaOverlay").remove();
     sortedDivs.appendTo('#stampFast');
 }
 
