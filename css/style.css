@@ -273,6 +273,6 @@ input:disabled {
 
 #limiteMonitoracao { width: 107px; }
 
-#motPrecisaAnalise { vertical-align: middle; }
+#retPrecisaAnalise, #motPrecisaAnalise { vertical-align: middle; }
 
 .inputInvalido { background-color: rgb(255, 175, 175);}

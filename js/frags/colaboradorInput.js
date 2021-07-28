@@ -1,8 +1,8 @@
-loadColaboradores();
-
 var colaboradores;
 var inputColaborador = $("#colaborador");
 var buttonAddColaborador = $("#addColaborador");
+
+loadColaboradores();
 
 function loadColaboradores() {
     colaboradores = JSON.parse(localStorage.getItem("colaboradores"));
@@ -16,6 +16,10 @@ function loadColaboradores() {
         delay: "0",
         classes: { "ui-autocomplete": "colaboradores"}
     });
+
+    colaboradorOperante = localStorage.getItem("colaboradorOperante");
+    if(colaboradorOperante) inputColaborador.val(colaboradorOperante);
+    
 }
 
 function addColaborador(colaborador) {
@@ -40,6 +44,7 @@ inputColaborador.focusout(function() {
     if (colaboradores.includes(inputColaborador.val())) {
         inputColaborador.addClass("validColaborador");
         buttonAddColaborador.prop('disabled', true);
+        localStorage.setItem("colaboradorOperante", inputColaborador.val());
     } else {
         inputColaborador.addClass("notValidColaborador");;
         buttonAddColaborador.prop('disabled', false);

@@ -140,7 +140,7 @@ function validaCampos() {
 }
 
 function mountMotStamp() {
-    return "*P1 " + limiteMotInput.val() + " @!@MONITORAÇÃO P1\n" +
+    return "*P1 " + limiteMotInput.val() + " @!@MONITORAÇÃO P1*\n" +
     "Tempo de Monitoração: " + tempoMotInput.val() + (tempoMotInput.val() == 1 ? " hora" : " horas") + "\n" +
     (isMotDeTP() ? ("TP Raiz: " + numTpRaiz.val() + "\n") : ("Motivo: " + motivoMotInput.val() + "\n")) +
     (obsMotInput.text().trim().length > 0 ? "OBS: " + obsMotInput.text().trim() + "\n" : "") +

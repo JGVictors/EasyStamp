@@ -28,6 +28,7 @@ function mountRetStamp() {
     return "*P1 " + data() + " @!@RETENÇÃO\n" +
     "TA Raiz: " + $("#numRetencao").val() + "\n" +
     "OBS: " + $("#obsRetencao").text().trim() + "\n" +
+    ($("#retPrecisaAnalise").is(":checked") ? mountAnalisys() + "\n" : "") +
     $("#colaborador").val() + " CO-RAM Icomon\n" +
     "###Informe e-escalation###";
 }   
